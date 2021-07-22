@@ -16,15 +16,15 @@ namespace HomePRO.Models
 
         [Required]
         [MaxLength(50)]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string LastName { get; set; }
+        //[Required]
+        //[MaxLength(50)]
+        //public string LastName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string DisplayName { get; set; }
+        //[Required]
+        //[MaxLength(50)]
+        //public string DisplayName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -33,13 +33,13 @@ namespace HomePRO.Models
 
         public DateTime CreateDateTime { get; set; }
 
-        public string FullName
-        {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return $"{FirstName} {LastName}";
+        //    }
+        //}
     }
 }
 
