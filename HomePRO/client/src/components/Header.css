@@ -1,0 +1,25 @@
+.tape {
+    background: repeating-linear-gradient(135deg, #FCCE14, #FCCE14 90px, #282C33 90px, #282C33 180px);
+    color: black;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    font-family: Arial;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: Black;
+}
+
+.tape-text {
+    background: repeating-linear-gradient( #282C33 30px, #282C33 60px);
+    color: white;
+    font-weight: 700;
+    font-size: 50px;
+    text-align: center;
+    font-family: Arial;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: red;
+}
+
+#logout {
+    margin-left: 10em;
+}
