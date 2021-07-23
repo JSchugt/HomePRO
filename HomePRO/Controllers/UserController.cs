@@ -25,6 +25,16 @@ namespace HomePRO.Controllers
         {
             return Ok(_userRepostiory.GetAllUserProfiles());
         }
+        [HttpGet("DoesUserExist/{firebaseUserId}")]
+        public IActionResult DoesUserExist(string firebaseUserId)
+        {
+            var userProfile = _userRepostiory.GetByFirebaseUserId(firebaseUserId);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
