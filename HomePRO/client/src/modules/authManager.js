@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
-const _apiUrl = "/api/userprofile";
+const _apiUrl = "/api/user";
 
 const _doesUserExist = (firebaseUserId) => {
   return getToken().then((token) =>
@@ -25,31 +25,18 @@ const _saveUser = (userProfile) => {
     }).then(resp => resp.json()));
 };
 
-export const GetAdminUsers = () =>{
-  return getToken().then((token) => {
-    return fetch (`/api/UserProfile/GetAdminUsers` , {
-      method: "GET",
-      headers: {
-          Authorization: `Bearer ${token}`
-      }
-    }).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        throw new Error("An unknown error occurred while trying to get the admins");
-      }
-    })
-  });
-};
-
 
 
 export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 
 export const login = (email, pw) => {
+  console.log("Email", email, "Password", pw)
   return firebase.auth().signInWithEmailAndPassword(email, pw)
-    .then((signInResponse) => _doesUserExist(signInResponse.user.uid))
+    .then((signInResponse) => {
+      console.log(signInResponse)
+      _doesUserExist(signInResponse.user.uid)
+    })
     .then((doesUserExist) => {
       if (!doesUserExist) {
 
@@ -72,9 +59,9 @@ export const logout = () => {
 
 export const register = (userProfile, password) => {
   return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
-    .then((createResponse) => _saveUser({ 
-      ...userProfile, 
-      firebaseUserId: createResponse.user.uid 
+    .then((createResponse) => _saveUser({
+      ...userProfile,
+      firebaseUserId: createResponse.user.uid
     }));
 };
 
