@@ -5,7 +5,7 @@ import Login from "./Login"
 import Register from "./Register"
 import "./Header.css"
 import { logout } from '../modules/authManager';
-import { Nav, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 export default function Header({ isLoggedIn }) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
@@ -17,8 +17,17 @@ export default function Header({ isLoggedIn }) {
             </div>
             {isLoggedIn &&
                 <div className="tape">
-                    <button to="/Projects">Projects</button>
-                    <button to="/Inventory">Inventory</button>
+                    <Nav>
+
+                        <NavItem>
+                            <NavLink tag={RRNavLink} to="/projects">Projects</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={RRNavLink} to="/inventory">Inventory</NavLink>
+                        </NavItem>
+                        {/* <button to="/Inventory">Inventory</button> */}
+
+                    </Nav>
                     <button onClick={logout}>Logout</button>
                 </div>
             }
