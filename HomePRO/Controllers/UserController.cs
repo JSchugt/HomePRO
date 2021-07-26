@@ -40,7 +40,6 @@ namespace HomePRO.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            //return Ok(_userRepostiory.GetUserById(id));
             return Ok(_userRepostiory.GetByFirebaseUserId(id));
             //throw new NotImplementedException();
         }
