@@ -8,5 +8,7 @@ namespace HomePRO.Repositories
         public void Add(Project project);
         public Project GetProjectById(int id);
         public List<Project> GetProjectsByUserId(string id);
+
+        public void DeleteProjectById(int id);
     }
 }

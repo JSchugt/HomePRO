@@ -15,9 +15,11 @@ namespace HomePRO.Repositories
 
         public void Add(Project project)
         {
-            using (var conn = Connection) {
+            using (var conn = Connection)
+            {
                 conn.Open();
-                using (var cmd = conn.CreateCommand()) {
+                using (var cmd = conn.CreateCommand())
+                {
                     cmd.CommandText = @"Insert into Projects (Name, Description, UserId)
                                         OUTPUT INSERTED.ID
                                         VALUES(@Name, @Description, @UserId);";
@@ -58,6 +60,21 @@ namespace HomePRO.Repositories
                 }
             }
         }
+        public void DeleteProjectById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Projects 
+                                        where id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public List<Project> GetProjectsByUserId(string id)
         {
             using (var conn = Connection)
