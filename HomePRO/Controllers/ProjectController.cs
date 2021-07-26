@@ -47,8 +47,14 @@ namespace HomePRO.Controllers
 
         // PUT api/<ProjectController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult  Put(int id, Project project)
         {
+            if (id != project.Id)
+            {
+                return BadRequest();
+            }
+            _projectRepository.EditPorject(project);
+            return NoContent();
         }
 
         // DELETE api/<ProjectController>/5

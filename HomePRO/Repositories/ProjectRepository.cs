@@ -12,7 +12,23 @@ namespace HomePRO.Repositories
     public class ProjectRepository : BaseRepository, IProjectRepository
     {
         public ProjectRepository(IConfiguration configuration) : base(configuration) { }
+        public void EditPorject(Project project)
+        {
+            using (var conn = Connection) {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Update Projects 
+                                        set name = @name, description = @description
+                                        where id = @id";
+                    DbUtils.AddParameter(cmd, "@name", project.Name);
+                    DbUtils.AddParameter(cmd, "@description", project.Description);
+                    DbUtils.AddParameter(cmd, "@id", project.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
+        }
         public void Add(Project project)
         {
             using (var conn = Connection)
