@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS [ProjectMaterials];
 DROP TABLE IF EXISTS [Materials];
 GO
 CREATE TABLE [User] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [name] nvarchar(255),
   [email] nvarchar(255),
   [firebaseId] nvarchar(255)
@@ -22,7 +22,7 @@ CREATE TABLE [User] (
 GO
 
 CREATE TABLE [Projects] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [UserId] int,
   [Name] nvarchar(255),
   [Description] nvarchar(255)
@@ -30,7 +30,7 @@ CREATE TABLE [Projects] (
 GO
 
 CREATE TABLE [Materials] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [UserId] int,
   [Name] nvarchar(255),
   [Price] int,
@@ -39,7 +39,7 @@ CREATE TABLE [Materials] (
 GO
 
 CREATE TABLE [Step] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [ProjectId] int,
   [TimeEstimate] datetime,
   [Description] nvarchar(255),
@@ -49,7 +49,7 @@ CREATE TABLE [Step] (
 GO
 
 CREATE TABLE [ProjectMaterials] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [ProjectId] int,
   [MaterialId] int
 )

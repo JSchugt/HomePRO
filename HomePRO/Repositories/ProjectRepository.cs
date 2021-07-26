@@ -15,6 +15,18 @@ namespace HomePRO.Repositories
 
         public void Add(Project project)
         {
+            using (var conn = Connection) {
+                conn.Open();
+                using (var cmd = conn.CreateCommand()) {
+                    cmd.CommandText = @"Insert into Projects (Name, Description, UserId)
+                                        OUTPUT INSERTED.ID
+                                        VALUES(@Name, @Description, @UserId);";
+                    DbUtils.AddParameter(cmd, "@Name", project.Name);
+                    DbUtils.AddParameter(cmd, "@Description", project.Description);
+                    DbUtils.AddParameter(cmd, "@UserId", project.UserId);
+                    project.Id = (int)cmd.ExecuteScalar();
+                }
+            }
         }
         public Project GetProjectById(int id)
         {
