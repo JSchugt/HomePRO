@@ -1,4 +1,5 @@
-﻿using HomePRO.Repositories;
+﻿using HomePRO.Models;
+using HomePRO.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,9 @@ namespace HomePRO.Controllers
         }
         // POST api/<ProjectController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Project project)
         {
+            _projectRepository.Add(project);
         }
 
         // PUT api/<ProjectController>/5
