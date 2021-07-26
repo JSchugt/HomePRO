@@ -20,11 +20,7 @@ namespace HomePRO.Controllers
             _projectRepository = projectRepository;
         }
         // GET: api/<ProjectController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+
         /// <summary>
         /// Returns a Project by the Projects Id
         /// </summary>
@@ -59,6 +55,7 @@ namespace HomePRO.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _projectRepository.DeleteProjectById(id);
         }
     }
 }
