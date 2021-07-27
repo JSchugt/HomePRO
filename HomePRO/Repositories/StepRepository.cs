@@ -46,12 +46,32 @@ namespace HomePRO.Repositories
             }
         }
         public void EditStep(Step step)
-        { }
-
-        public void DeleteStepByStepId(int id) {
-            using (var conn = Connection) {
+        {
+            using (var conn = Connection)
+            {
                 conn.Open();
                 using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Update Step 
+                                        set projectId = @projectid, description = @description, TimeEstimate = @time, step = @step, IsComplete = @isCompleted
+                                        where id = @id";
+                    DbUtils.AddParameter(cmd, "@projectid", step.ProjectId);
+                    DbUtils.AddParameter(cmd, "@time", step.TimeEstimate);
+                    DbUtils.AddParameter(cmd, "@step", step.StepNumber);
+                    DbUtils.AddParameter(cmd, "@isCompleted", step.IsComplete);
+                    DbUtils.AddParameter(cmd, "@description", step.Description);
+                    DbUtils.AddParameter(cmd, "@id", step.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteStepByStepId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"Delete from [Step] 
                                         Where id = @id";
@@ -59,11 +79,12 @@ namespace HomePRO.Repositories
                     cmd.ExecuteNonQuery();
 
                 }
-            
+
             }
         }
-        public void DeleteStepsByProjectId(int id) {
 
+        public void DeleteStepsByProjectId(int id)
+        {
             using (var conn = Connection)
             {
                 conn.Open();
@@ -73,16 +94,17 @@ namespace HomePRO.Repositories
                                         Where projectid = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
-
                 }
-
             }
         }
 
-        public void AddStep(Step step) {
-            using (var conn = Connection) {
+        public void AddStep(Step step)
+        {
+            using (var conn = Connection)
+            {
                 conn.Open();
-                using (var cmd = conn.CreateCommand()) {
+                using (var cmd = conn.CreateCommand())
+                {
                     cmd.CommandText = @"Insert Into Step (Step, IsComplete, Description, ProjectId, TimeEstimate)
                                         OUTPUT INSERTED.ID
                                         Values (@step, @complete, @description, @projId, @time)";
@@ -96,6 +118,7 @@ namespace HomePRO.Repositories
                 }
             }
         }
+
         public Step GetStepById(int id)
         {
             using (var conn = Connection)

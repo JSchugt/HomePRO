@@ -36,14 +36,21 @@ namespace HomePRO.Controllers
 
         // POST api/<StepController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Step step)
         {
+            _stepRepository.AddStep(step);
         }
 
         // PUT api/<StepController>/5
         [HttpPut("{id}")]
-        public void Put(int id, Step step)
+        public IActionResult Put(int id, Step step)
         {
+            if (id != step.Id)
+            {
+                return BadRequest();
+            }
+            _stepRepository.EditStep(step);
+            return NoContent();
         }
 
         // DELETE api/<StepController>/5
