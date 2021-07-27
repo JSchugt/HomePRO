@@ -48,10 +48,54 @@ namespace HomePRO.Repositories
         public void EditStep(Step step)
         { }
 
-        public void DeleteStepByStepId(int id) { }
-        public void DeleteStepsByProjectId(int id) { }
+        public void DeleteStepByStepId(int id) {
+            using (var conn = Connection) {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Delete from [Step] 
+                                        Where id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
 
-        public void AddStep(Step step) { }
+                }
+            
+            }
+        }
+        public void DeleteStepsByProjectId(int id) {
+
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Delete from [Step] 
+                                        Where projectid = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+        }
+
+        public void AddStep(Step step) {
+            using (var conn = Connection) {
+                conn.Open();
+                using (var cmd = conn.CreateCommand()) {
+                    cmd.CommandText = @"Insert Into Step (Step, IsComplete, Description, ProjectId, TimeEstimate)
+                                        OUTPUT INSERTED.ID
+                                        Values (@step, @complete, @description, @projId, @time)";
+
+                    DbUtils.AddParameter(cmd, "@step", step.StepNumber);
+                    DbUtils.AddParameter(cmd, "@complete", step.IsComplete);
+                    DbUtils.AddParameter(cmd, "@description", step.Description);
+                    DbUtils.AddParameter(cmd, "@projId", step.ProjectId);
+                    DbUtils.AddParameter(cmd, "@time", step.TimeEstimate);
+                    step.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
         public Step GetStepById(int id)
         {
             using (var conn = Connection)

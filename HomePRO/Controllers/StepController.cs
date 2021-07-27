@@ -1,4 +1,6 @@
-﻿using HomePRO.Repositories;
+﻿using HomePRO.Models;
+using HomePRO.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomePRO.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class StepController : ControllerBase
@@ -39,14 +42,21 @@ namespace HomePRO.Controllers
 
         // PUT api/<StepController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, Step step)
         {
         }
 
         // DELETE api/<StepController>/5
+        [HttpDelete("Project/{id}")]
+        public void DeleteByProject(int id)
+        {
+            _stepRepository.DeleteStepsByProjectId(id);
+        }
+        // DELETE api/<StepController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _stepRepository.DeleteStepByStepId(id);
         }
     }
 }
