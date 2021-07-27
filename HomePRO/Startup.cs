@@ -25,6 +25,9 @@ namespace HomePRO
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IStepRepository, StepRepository>();
+            services.AddTransient<IMaterialsRepository, MaterialsRepository>();
+            services.AddTransient<IProjectMaterialsRepository, ProjectMaterialsRepository>();
+
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
