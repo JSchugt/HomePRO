@@ -4,6 +4,9 @@ namespace HomePRO.Repositories
 {
     public interface IProjectMaterialsRepository
     {
-        ProjectMaterials GetProjectMaterialsByProjectId(int id);
+        public ProjectMaterials GetProjectMaterialsByProjectId(int id);
+        public void DeleteProjectMaterialsByProjectId(int id);
+        public void DeleteProjectMaterialsById(int id);
+        public void AddMaterialsToProject(ProjectMaterials project);
     }
 }
