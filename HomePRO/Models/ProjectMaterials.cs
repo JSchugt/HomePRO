@@ -10,5 +10,7 @@ namespace HomePRO.Models
         public int Id { get; set; }
         public int Projectid { get; set; }
         public int MaterialId { get; set; }
+
+        public List<Materials> Materials { get; set; }
     }
 }

@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 // import Register from "./Register";
 import Hello from "./Hello";
 import Login from "./Login";
-import { ProjectsList } from "./projects/ProjectsList";
+import { ProjectsList } from "./projects/projectsList";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
