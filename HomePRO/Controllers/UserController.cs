@@ -46,8 +46,13 @@ namespace HomePRO.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Register(User userProfile)
         {
+
+            // All newly registered users start out as a "user" user type (i.e. they are not admins)
+            _userRepostiory.Add(userProfile);
+            return CreatedAtAction(
+                nameof(Get), new { FirebaseUserId = userProfile.FirebaseUserId }, userProfile);
         }
 
         // PUT api/<UserController>/5

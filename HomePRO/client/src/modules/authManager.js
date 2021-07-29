@@ -67,7 +67,7 @@ export const register = (user, password) => {
     .then((createResponse) => _saveUser({
       ...user,
       firebaseUserId: createResponse.user.uid
-    }).then(() => _onLoginStatusChangedHandler(true)));
+    }))
 };
 
 
