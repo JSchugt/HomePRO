@@ -63,16 +63,17 @@ namespace HomePRO.Repositories
                 }
             }
         }
-        public List<Materials> GetMaterialsByUserId(int id)
+        public List<Materials> GetMaterialsByUserId(string id)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"Select Id, UserId, Price, Qty, Name
-                                       From Materials
-                                        where UserId = @userId";
+                    cmd.CommandText = @"Select m.Id, m.UserId, m.Price, m.Qty, m.Name
+                                       From Materials as m
+                                        left join [User] as u on m.UserId = u.Id
+                                        where u.firebaseid = @userId";
                     DbUtils.AddParameter(cmd, "@userId", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Materials> MaterialsList = new List<Materials>() { };
@@ -82,7 +83,7 @@ namespace HomePRO.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Price = DbUtils.GetInt(reader, "Price"),
-                            UserId = id,
+                            UserId = DbUtils.GetInt(reader, "UserId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Qty = DbUtils.GetInt(reader, "Qty"),
                         });

@@ -1,5 +1,6 @@
 ﻿using HomePRO.Models;
 using HomePRO.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomePRO.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialsController : ControllerBase
@@ -20,7 +22,7 @@ namespace HomePRO.Controllers
         }
         // GET: api/<MaterialsController>
         [HttpGet("UserId/{id}")]
-        public IActionResult GetMaterialsByUserId(int id)
+        public IActionResult GetMaterialsByUserId(string id)
         {
             return Ok(_materialsRepository.GetMaterialsByUserId(id));
         }
