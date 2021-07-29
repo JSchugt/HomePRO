@@ -43,6 +43,7 @@ export default function Header({ isLoggedIn }) {
                             <Redirect to="/register"></Redirect>
                         </NavLink>
                     </div>
+                    // something
                 }
             </div>
         </div >)
