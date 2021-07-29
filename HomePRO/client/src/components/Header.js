@@ -39,6 +39,9 @@ export default function Header({ isLoggedIn }) {
                         <NavLink>
                             <Redirect to="/login"></Redirect>
                         </NavLink>
+                        <NavLink>
+                            <Redirect to="/register"></Redirect>
+                        </NavLink>
                     </div>
                 }
             </div>

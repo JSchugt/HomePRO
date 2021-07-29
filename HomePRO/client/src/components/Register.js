@@ -6,8 +6,8 @@ import { register } from "../modules/authManager";
 export default function Register() {
   const history = useHistory();
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
+  const [name, setFirstName] = useState();
+  // const [lastName, setLastName] = useState();
   const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
   const [imageLocation, setImageLocation] = useState();
@@ -19,23 +19,23 @@ export default function Register() {
     if (password && password !== confirmPassword) {
       alert("Passwords don't match. Do better.");
     } else {
-      const userProfile = { firstName, lastName, displayName, imageLocation, email };
+      const userProfile = { name, displayName, imageLocation, email };
       register(userProfile, password)
         .then(() => history.push("/"));
     }
- };
+  };
 
   return (
     <Form onSubmit={registerClick}>
       <fieldset>
         <FormGroup>
-          <Label htmlFor="firstName">First Name</Label>
-          <Input id="firstName" type="text" onChange={e => setFirstName(e.target.value)} />
+          <Label htmlFor="name">First Name</Label>
+          <Input id="name" type="text" onChange={e => setFirstName(e.target.value)} />
         </FormGroup>
-        <FormGroup>
+        {/* <FormGroup>
           <Label htmlFor="lastName">Last Name</Label>
           <Input id="lastName" type="text" onChange={e => setLastName(e.target.value)} />
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup>
           <Label htmlFor="displayName">Display Name</Label>
           <Input id="displayName" type="text" onChange={e => setDisplayName(e.target.value)} />
