@@ -9,6 +9,6 @@ namespace HomePRO.Repositories
         void DeleteMaterialsById(int id);
         void EditMaterials(Materials materials);
         Materials GetMaterialsById(int Id);
-        List<Materials> GetMaterialsByUserId(int id);
+        List<Materials> GetMaterialsByUserId(string id);
     }
 }

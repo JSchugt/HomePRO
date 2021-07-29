@@ -1,5 +1,6 @@
 ﻿using HomePRO.Models;
 using HomePRO.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace HomePRO.Controllers
 {
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectController : ControllerBase

@@ -5,7 +5,7 @@ import Hello from "./Hello";
 import Login from "./Login";
 import { ProjectsList } from "./projects/ProjectList";
 import { Materials } from "./materials/Materials";
-import { MaterialsInventory } from "./materials/MaterialsInventory";
+import { MaterialsList } from "./materials/MaterialsList";
 import { ProjectCard } from "./projects/Projectcard";
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -22,11 +22,11 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/Projects/:projectId(\d+)">
           {isLoggedIn ? <ProjectCard /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/Projects/Materials/:materialId(\d+)">
+        <Route path="/Projects/Materials" >
           {isLoggedIn ? <Materials /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/Iventory/Materials/:userId(\d+)">
-          {isLoggedIn ? <MaterialsInventory /> : <Redirect to="/login" />}
+        <Route path="/Iventory/Materials">
+          {isLoggedIn ? <MaterialsList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
           <Login />

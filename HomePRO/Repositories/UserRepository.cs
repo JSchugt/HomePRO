@@ -63,7 +63,6 @@ namespace HomePRO.Repositories
                     return Users;
                 }
             }
-
         }
 
         public User GetByFirebaseUserId(string firebaseUserId)
