@@ -14,7 +14,22 @@ namespace HomePRO.Repositories
 
         public void Add(User user)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(user.Name, "user name registrations");
+            using (var conn = Connection) {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Insert into [User] (name, firebaseid, email)
+                                        Output Inserted.Id
+                                        values (@name, @fbid, @email)";
+
+                    DbUtils.AddParameter(cmd, "@name", user.Name);
+                    DbUtils.AddParameter(cmd, "@fbid", user.FirebaseUserId);
+                    DbUtils.AddParameter(cmd, "@email", user.Email);
+                    user.Id = (int)cmd.ExecuteScalar();
+                }
+            
+            }
         }
 
         public List<User> GetAllUserProfiles()
