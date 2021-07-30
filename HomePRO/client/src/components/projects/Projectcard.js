@@ -20,10 +20,10 @@ export const ProjectCard = () => {
     const getMaterialsByPMId = () => {
         getProjectMaterialsByProjectid(projectId).then(res => {
             setMaterials(res)
-            if (res.materials.length === 0) {
-                setT([{}])
-            } else {
-
+            if (res === 204) {
+                setT([])
+            }
+            else {
                 setT(res.materials)
             }
         })

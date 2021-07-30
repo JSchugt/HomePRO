@@ -101,9 +101,9 @@ namespace HomePRO.Repositories
                         {
                             projectMaterials = new ProjectMaterials()
                             {
-                                Id = DbUtils.GetInt(reader, "pmid"),
+                                Id = DbUtils.GetNullableInt(reader, "pmid"),
                                 Projectid = id,
-                                MaterialId = DbUtils.GetInt(reader, "muserid"),
+                                MaterialId = DbUtils.GetNullableInt(reader, "muserid"),
                                 Materials = new List<Materials>() { },
                             };
                         }
@@ -116,8 +116,7 @@ namespace HomePRO.Repositories
                             Qty = DbUtils.GetInt(reader, "mqty"),
 
                         });
-                        Console.WriteLine("hello world");
-                        Console.WriteLine(DbUtils.GetInt(reader, "mid"));
+
                         
                     }
                     reader.Close();

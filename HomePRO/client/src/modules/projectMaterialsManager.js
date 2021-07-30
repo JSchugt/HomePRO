@@ -42,11 +42,15 @@ export const getProjectMaterialsByProjectid = (id) => {
                 Authorization: `Bearer ${token}`
             }
         }).then(resp => {
-            if (resp.ok) {
-                console.log(resp)
+            console.log(resp, "resp error")
+            console.log(resp.status, "resp error code")
+            if (resp.status === 204) {
+                return 204
+            }
+            else if (resp.ok) {
                 return resp.json();
             } else {
-                throw new Error("Failed: no steps by project id were returned");
+                throw new Error("Failed: no materials by project id were returned");
             }
         })
     })
