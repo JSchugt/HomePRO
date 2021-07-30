@@ -46,8 +46,26 @@ namespace HomePRO.Repositories
 
             }
         }
+        public void deleteProjectMaterialsByProjectIdAndMaterial(int projId, int matInt)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Delete from ProjectMaterials
+                                        where ProjectId = @projId and MaterialId = @matInt";
+                    DbUtils.AddParameter(cmd, "@projId", projId);
+                    DbUtils.AddParameter(cmd, "@matInt", matInt);
+                    cmd.ExecuteNonQuery();
 
-        public void DeleteProjectMaterialsById(int id) {
+                }
+
+            }
+
+        }
+        public void DeleteProjectMaterialsById(int id)
+        {
 
             using (var conn = Connection)
             {
@@ -83,12 +101,13 @@ namespace HomePRO.Repositories
                         {
                             projectMaterials = new ProjectMaterials()
                             {
-                                Id = DbUtils.GetInt(reader, "pmid"),
+                                Id = DbUtils.GetNullableInt(reader, "pmid"),
                                 Projectid = id,
-                                MaterialId = DbUtils.GetInt(reader, "muserid"),
+                                MaterialId = DbUtils.GetNullableInt(reader, "muserid"),
                                 Materials = new List<Materials>() { },
                             };
                         }
+
                         projectMaterials.Materials.Add(new Materials()
                         {
                             Id = DbUtils.GetInt(reader, "mid"),
@@ -97,6 +116,8 @@ namespace HomePRO.Repositories
                             Qty = DbUtils.GetInt(reader, "mqty"),
 
                         });
+
+                        
                     }
                     reader.Close();
                     return projectMaterials;

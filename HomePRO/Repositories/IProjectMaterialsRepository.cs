@@ -8,5 +8,6 @@ namespace HomePRO.Repositories
         public void DeleteProjectMaterialsByProjectId(int id);
         public void DeleteProjectMaterialsById(int id);
         public void AddMaterialsToProject(ProjectMaterials project);
+        public void deleteProjectMaterialsByProjectIdAndMaterial(int projId, int matInt);
     }
 }

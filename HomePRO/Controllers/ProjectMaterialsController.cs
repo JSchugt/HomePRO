@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomePRO.Controllers
 {
-    [Authorize]
+    
 
     [Route("api/[controller]")]
     [ApiController]
@@ -25,9 +25,9 @@ namespace HomePRO.Controllers
         }
         // GET api/<ProjectMaterialsController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ProjectMaterials Get(int id)
         {
-            return Ok(_projectMaterialsRepository.GetProjectMaterialsByProjectId(id));
+            return _projectMaterialsRepository.GetProjectMaterialsByProjectId(id);
         }
 
         // POST api/<ProjectMaterialsController>
@@ -36,14 +36,17 @@ namespace HomePRO.Controllers
         {
             _projectMaterialsRepository.AddMaterialsToProject(project);
         }
-
+        [HttpDelete("Material/{projId}/{id}")]
+        public void DeletePM(int id, int projId) {
+            _projectMaterialsRepository.deleteProjectMaterialsByProjectIdAndMaterial(projId, id);
+        }
         // DELETE api/<ProjectMaterialsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             _projectMaterialsRepository.DeleteProjectMaterialsById(id);
         }
-        [HttpDelete("/ProjectId/{id}")] 
+        [HttpDelete("ProjectId/{id}")] 
         public void DeleteByProjectId(int id) {
             _projectMaterialsRepository.DeleteProjectMaterialsByProjectId(id);
         }
