@@ -1,0 +1,14 @@
+.cell {
+    border: 2px black solid;
+    margin: -2px;
+    border: 4px black solid;
+    font-size: 3em;
+}
+
+.price {
+    text-align: right;
+}
+
+.total {
+    font-size: 3em;
+}

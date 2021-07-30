@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { getMaterialsByUserId } from "../../modules/materialsManager"
 import firebase from "firebase/app";
+import './materials.css'
+
+
 export const MaterialsList = () => {
     const [inventory, setInventory] = useState([])
     const [totalPrice, setTotalPrice] = useState()
-
 
     const getInvenotry = () => {
         getMaterialsByUserId(firebase.auth().currentUser.uid).then((resp) => {
@@ -34,15 +36,30 @@ export const MaterialsList = () => {
 
     return (<div>
         <h1>MaterialsList</h1>
-        {inventory.map((item) => {
-            return <div key={item.id}>
-                <h3>{item.name}</h3>
-                <div>${item.price / 100}</div>
-                <div>{item.qty}</div>
-                <div>${item.price / 100 * item.qty}</div>
+        <table>
+            <caption>Total Inventory Cost</caption>
+            <tr>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Item Total</th>
+            </tr>
+            {inventory.map((item) => {
+                return <tr key={item.id}>
+                    <td className="cell">{item.name}</td>
+                    <td className="cell price">${item.price / 100}</td>
+                    <td className="cell price">{item.qty}</td>
+                    <td className="cell price">${item.price / 100 * item.qty}</td>
+                </tr>
+            })}
+            <tr>
+                <td></td>
+                <td className="total">Total</td>
+                <td ></td>
+                <td className="total">${totalPrice}</td>
+            </tr>
 
-            </div>
-        })}
-        <h3>Total ${totalPrice}</h3>
+        </table>
+
     </div>)
 }
