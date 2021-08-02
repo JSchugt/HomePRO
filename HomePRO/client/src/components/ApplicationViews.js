@@ -11,6 +11,7 @@ import { StepCreate } from "./steps/StepsCreate";
 import { StepEdit } from "./steps/StepsEdit";
 import { ProjectCreate } from "./projects/ProjectCreate";
 import { StepList } from "./steps/StepsList";
+import { ProjectEdit } from "./projects/ProjectEdit";
 export default function ApplicationViews({ isLoggedIn }) {
 
   return (
@@ -26,6 +27,9 @@ export default function ApplicationViews({ isLoggedIn }) {
         </Route>
         <Route path="/Projects/:projectId(\d+)" exact>
           {isLoggedIn ? <ProjectCard /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/Projects/:projectId(\d+)/edit" exact>
+          {isLoggedIn ? <ProjectEdit /> : <Redirect to="/login" />}
         </Route>
         {/* Materials */}
         <Route path="/Projects/Materials" >

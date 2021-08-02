@@ -1,18 +1,19 @@
 import React, { useState } from "react"
 import firebase from "firebase"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { createProject } from "../../modules/projectsManager"
 
 export const ProjectCreate = () => {
-    const [project, setProject] = useState([{
-        Description: "Description",
-        Name: "Name",
-        UserId: firebase.auth().currentUser.uid
-    }])
+    const [project, setProject] = useState({
+        description: "",
+        name: "",
+        userId: firebase.auth().currentUser.uid
+    })
     const history = useHistory();
     const handleOnchange = (evt) => {
+        console.log(evt.target.name, "Name in create projects")
         const { name, value } = evt.target;
-        const temp = project;
+        const temp = { ...project };
         temp[name] = value;
         console.log(temp);
         setProject(temp);
@@ -29,13 +30,13 @@ export const ProjectCreate = () => {
                 <label>Project Name</label>
             </div>
             <div>
-                <input type="text" name={"Name"} onChange={(evt) => handleOnchange(evt)} placeholder={"Project Name"} />
+                <input type="text" name={"name"} onChange={(evt) => handleOnchange(evt)} placeholder={"Project Name"} />
             </div>
             <div>
                 <label>Description</label>
             </div>
             <div>
-                <input type="text" name={"Description"} onChange={(evt) => handleOnchange(evt)} placeholder={"Description"} />
+                <input type="text" name={"description"} onChange={(evt) => handleOnchange(evt)} placeholder={"Description"} />
             </div>
             <div>
                 <button onClick={handleProjectSave}>Save</button>
