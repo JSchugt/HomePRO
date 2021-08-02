@@ -7,7 +7,6 @@ export const Project = ({ project }) => {
         <div>
 
             <h2>{project.name}</h2>
-            {console.log(project, "project data")}
         </div>
     )
 }

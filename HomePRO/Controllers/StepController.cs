@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomePRO.Controllers
 {
-    [Authorize]
+  
 
     [Route("api/[controller]")]
     [ApiController]

@@ -50,3 +50,44 @@ export const getProjectByProjectId = (id) => {
             })
     })
 }
+
+export const createProject = (project) => {
+    let project2 = {
+        name: "test project",
+        description: "testing",
+        userId: "thesuperuser"
+    }
+    return getToken().then((token) => {
+        return fetch(`${_apiUrl}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify(project)
+
+        })
+    })
+
+}
+
+
+export const editProject = (project) => {
+
+    return getToken().then((token) => {
+        return fetch(`${_apiUrl}/${project.id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify(project)
+
+        })
+
+    }
+    )
+}
+

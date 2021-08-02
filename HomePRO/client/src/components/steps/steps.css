@@ -1,0 +1,11 @@
+.steplist {
+    width: 50em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 4px solid black;
+}
+
+.stepDesc {
+    font-size: 2em;
+}

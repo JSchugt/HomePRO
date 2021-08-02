@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getProjectByUserId } from '../../modules/projectsManager'
 // import { NavLink as RRNavLink, Redirect, Route } from "react-router-dom";
 
-import { Redirect, useHistory, NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Project } from './Projects';
@@ -10,9 +10,7 @@ export const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
     const history = useHistory();
     const currentUser = firebase.auth().currentUser.uid;
-    //console.log(currentUser, "current user")
     const getProjects = () => {
-        console.log(currentUser, "Current user")
         getProjectByUserId(currentUser)
             .then(proj => setProjects(proj));
     }
@@ -38,6 +36,7 @@ export const ProjectsList = () => {
                     )
                 })}
             </div>
+            <button onClick={() => { history.push(`/Projects/Create`) }}>New Project</button>
         </div >
     )
 }

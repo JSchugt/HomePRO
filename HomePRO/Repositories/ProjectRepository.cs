@@ -68,7 +68,7 @@ namespace HomePRO.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            UserId = id,
+                            UserId = DbUtils.GetString(reader, "userId"),
                         };
                     }
                     reader.Close();
@@ -99,22 +99,22 @@ namespace HomePRO.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
 
-                    cmd.CommandText = @"Select p.Id, p.Name, p.userId, p.Description, u.firebaseId, u.id uid
+                    cmd.CommandText = @"Select p.Id as pid, p.Name, p.userId, p.Description, u.firebaseId as fbid, u.id uid
                                         From Projects p
-                                        Left join [User] u on p.UserId = u.id
+                                        Left join [User] u on p.userid = u.firebaseid
                                         where u.firebaseId = @userId";
                     List<Project> projects = new List<Project>() { };
-                    DbUtils.AddParameter(cmd, "@userId", id);
+                    DbUtils.AddParameter(cmd, "@userId", "qCCBmyvDWKcJ23mPFaKALLrpW0r2");
                     SqlDataReader reader = cmd.ExecuteReader();
                     Project project = null;
-                    if (reader.Read())
+                    while (reader.Read())
                     {
                         project = new Project()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
+                            Id = DbUtils.GetInt(reader, "pid"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            UserId = DbUtils.GetInt(reader, "uid"),
+                            UserId = DbUtils.GetString(reader, "fbid"),
                         };
                         projects.Add(project);
                     }
