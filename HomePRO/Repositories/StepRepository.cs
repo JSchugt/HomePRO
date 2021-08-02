@@ -36,7 +36,7 @@ namespace HomePRO.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             StepNumber = DbUtils.GetInt(reader, "Step"),
                             ProjectId = DbUtils.GetInt(reader, "ProjectId"),
-                            TimeEstimate = DbUtils.GetNullableDateTime(reader, "TimeEstimate"),
+                            TimeEstimate = DbUtils.GetNullableInt(reader, "TimeEstimate"),
                         };
                         steps.Add(step);
                     }
@@ -50,7 +50,7 @@ namespace HomePRO.Repositories
             using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"Update Step 
                                         set projectId = @projectid, description = @description, TimeEstimate = @time, step = @step, IsComplete = @isCompleted
@@ -139,7 +139,7 @@ namespace HomePRO.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             StepNumber = DbUtils.GetInt(reader, "Step"),
                             ProjectId = DbUtils.GetInt(reader, "ProjectId"),
-                            TimeEstimate = DbUtils.GetNullableDateTime(reader, "TimeEstimate"),
+                            TimeEstimate = DbUtils.GetNullableInt(reader, "TimeEstimate"),
                         };
                     }
                     reader.Close();

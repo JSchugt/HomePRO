@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { NavLink as RRNavLink, Redirect, Route } from "react-router-dom";
-import Login from "./Login"
-import Register from "./Register"
+import { NavLink as RRNavLink, Redirect } from "react-router-dom";
+// import Login from "./Login"
+// import Register from "./Register"
 import "./Header.css"
 import { logout } from '../modules/authManager';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 export default function Header({ isLoggedIn }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
+    // const [isOpen, setIsOpen] = useState(false);
+    // const toggle = () => setIsOpen(!isOpen);
 
     return (
         <div className="tape2">

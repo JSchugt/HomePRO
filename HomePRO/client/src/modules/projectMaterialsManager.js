@@ -24,7 +24,6 @@ export const deleteByProjectIdAndMaterialId = (projId, matId) => {
 //                 Authorization: `Bearer ${token}`
 //             }
 //         }).then(resp => {
-//             console.log(resp, "materials response");
 //             if (resp.ok) {
 //                 return resp.json();
 //             } else {
@@ -42,8 +41,6 @@ export const getProjectMaterialsByProjectid = (id) => {
                 Authorization: `Bearer ${token}`
             }
         }).then(resp => {
-            console.log(resp, "resp error")
-            console.log(resp.status, "resp error code")
             if (resp.status === 204) {
                 return 204
             }

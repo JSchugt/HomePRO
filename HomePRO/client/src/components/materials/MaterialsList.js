@@ -9,7 +9,8 @@ export const MaterialsList = () => {
     const [totalPrice, setTotalPrice] = useState()
 
     const getInvenotry = () => {
-        getMaterialsByUserId(firebase.auth().currentUser.uid).then((resp) => {
+        const currentUser = firebase.auth().currentUser.uid
+        getMaterialsByUserId(currentUser).then((resp) => {
             setInventory(resp)
 
         })
@@ -17,7 +18,6 @@ export const MaterialsList = () => {
 
     const sumInventory = () => {
         // inventory.forEach((item) => {
-        //     console.log(item.price, item.qty)
         //     let temp = item.price * item.qty + totalPrice
         //     setTotalPrice(temp)
 
@@ -32,7 +32,7 @@ export const MaterialsList = () => {
     }, [])
     useEffect(() => {
         sumInventory()
-    }, [inventory])
+    }, [totalPrice])
 
     return (<div>
         <h1>MaterialsList</h1>
