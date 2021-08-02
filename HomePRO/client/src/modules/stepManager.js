@@ -14,7 +14,6 @@ export const deleteStepById = (id) => {
     })
 }
 export const addStepsToProject = (step) => {
-    console.log(step, "Steps in manager");
     return getToken().then((token) => {
 
         return fetch(`${_apiUrl}`, {
@@ -45,53 +44,16 @@ export const getStepByProjectId = (id) => {
         })
     })
 }
+export const editSteps = (id, step) => {
+    return getToken().then((token) => {
+        return fetch(`${_apiUrl}/${id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
 
-// }
-// export const getProjectByUserId = (id) => {
-    //     return getToken().then((token) => {
-        //         return fetch(`${_apiUrl}/user/${id}`,
-        //             {
-            //                 method: "GET",
-            //                 headers: {
-                //                     Authorization: `Bearer ${token}`,
-                //                 }
-                //             }).then(resp => {
-                    //                 if (resp.ok) {
-                        //                     return resp.json();
-                        //                 } else {
-                            //                     throw new Error("Failed: no projects by user id were returned");
-                            //                 }
-                            //             })
-                            //     })
-                            // }
-
-                            // export const deleteProjectByProjectId = (id) => {
-                                //     return getToken().then((token) => {
-                                    //         return fetch(`${_apiUrl}/${id}`,
-                                    //             {
-                                        //                 method: "DELETE",
-                                        //                 headers: {
-                                            //                     Authorization: `Bearer ${token}`,
-                                            //                     "Content-Type": "application/json",
-                                            //                 }
-                                            //             })
-                                            //     })
-
-                                            // }
-                                            // export const getProjectByProjectId = (id) => {
-                                                //     return getToken().then((token) => {
-                                                    //         return fetch(`${_apiUrl}/${id}`,
-                                                    //             {
-                                                        //                 method: "GET",
-                                                        //                 headers: {
-//                     Authorization: `Bearer ${token}`,
-//                 }
-//             }).then(resp => {
-    //                 if (resp.ok) {
-        //                     return resp.json();
-        //                 } else {
-            //                     throw new Error("Failed: no projects by project id were returned");
-            //                 }
-            //             })
-            //     })
-            // }
+            body: JSON.stringify(step)
+        })
+    })
+}

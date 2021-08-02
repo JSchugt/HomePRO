@@ -16,11 +16,9 @@ export const ProjectEdit = () => {
         } else {
             temp.description = evt.target.value
         }
-        console.log(temp, "temp")
         // const { name, value } = evt.target;
         // const temp = { ...project };
         // temp[name] = value;
-        // console.log(temp);
         // setProject(temp);
 
     }

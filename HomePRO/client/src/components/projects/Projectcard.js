@@ -51,7 +51,6 @@ export const ProjectCard = () => {
         history.push(`/Projects/${projectId}/steps`)
     }
     const handleDeleClick = () => {
-        console.log("DELETE DELETE DELETE");
         deleteProjectByProjectId(projectId).then(history.push("/Projects"))
     }
     return (<div>
