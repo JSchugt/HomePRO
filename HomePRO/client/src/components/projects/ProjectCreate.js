@@ -11,16 +11,13 @@ export const ProjectCreate = () => {
     })
     const history = useHistory();
     const handleOnchange = (evt) => {
-        console.log(evt.target.name, "Name in create projects")
         const { name, value } = evt.target;
         const temp = { ...project };
         temp[name] = value;
-        console.log(temp);
         setProject(temp);
 
     }
     const handleProjectSave = () => {
-        console.log(project, "OUt datea");
         createProject(project).then(history.push('/Projects'))
     }
     return (

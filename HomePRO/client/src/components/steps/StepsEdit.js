@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
-import { getStepByProjectId } from "../../modules/stepManager"
+import { addStepsToProject, deleteStepById, getStepByProjectId } from "../../modules/stepManager"
 export const StepEdit = () => {
     const { id } = useParams()
     const history = useHistory()
     const [steps, setSteps] = useState([{}])
+    const stepDelete = []
     const getSteps = () => {
         getStepByProjectId(id).then(setSteps)
 
@@ -34,21 +35,28 @@ export const StepEdit = () => {
         }])
     }
     const handleRemove = index => {
-        let temp = [...steps];
-        temp.splice(index, 1);
-        temp.forEach(step => {
-            if (step.stepNumber !== 1 && step.stepNumber > index) {
-                step.stepNumber = step.stepNumber - 1
-            }
-
-        });
-        setSteps([...temp]);
+        if (window.confirm("This can not be undone")) {
+            let temp = [...steps];
+            temp.splice(index, 1);
+            temp.forEach(step => {
+                if (step.stepNumber !== 1 && step.stepNumber > index) {
+                    step.stepNumber = step.stepNumber - 1
+                }
+            });
+            deleteStepById(steps[index].id)
+            setSteps([...temp]);
+        }
     };
     const handleSaveSteps = () => {
         steps.forEach(step => {
-            // addStepsToProject(step)
+            deleteStepById(step.id)
         })
+        steps.forEach(step => {
+            addStepsToProject(step)
+        })
+
         history.push(`/Projects/${id}`)
+
     }
     const handleCancel = () => {
         history.push(`/Projects/${id}`)
