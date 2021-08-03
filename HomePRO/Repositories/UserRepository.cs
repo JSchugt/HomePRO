@@ -15,9 +15,10 @@ namespace HomePRO.Repositories
         public void Add(User user)
         {
             Console.WriteLine(user.Name, "user name registrations");
-            using (var conn = Connection) {
+            using (var conn = Connection)
+            {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"Insert into [User] (name, firebaseid, email)
                                         Output Inserted.Id
@@ -28,7 +29,7 @@ namespace HomePRO.Repositories
                     DbUtils.AddParameter(cmd, "@email", user.Email);
                     user.Id = (int)cmd.ExecuteScalar();
                 }
-            
+
             }
         }
 
@@ -64,7 +65,20 @@ namespace HomePRO.Repositories
                 }
             }
         }
+        void AddMaterialsToProject(int projectId, Materials materials)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"insert into materials (price, userid, qty, name)
+                                        output inserted.id
+                                        values (@price, @userid, @qty, @name)";
+                }
+            }
 
+        }
         public User GetByFirebaseUserId(string firebaseUserId)
         {
             using (var conn = Connection)

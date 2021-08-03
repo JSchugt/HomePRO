@@ -5,6 +5,7 @@ namespace HomePRO.Repositories
 {
     public interface IMaterialsRepository
     {
+        void AddMaterialsToProject(int projectId, Materials materials);
         void AddMaterial(Materials materials);
         void DeleteMaterialsById(int id);
         void EditMaterials(Materials materials);

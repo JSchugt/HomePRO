@@ -55,7 +55,7 @@ export const StepEdit = () => {
             addStepsToProject(step)
         })
 
-        history.push(`/Projects/${id}`)
+        history.push(`/Projects`)
 
     }
     const handleCancel = () => {
@@ -66,11 +66,10 @@ export const StepEdit = () => {
         {steps.map((step, i) => {
             return (<div key={i}>
                 <div>{step.stepNumber}</div>
-                <input type="text" name="Description" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={step.description} />
-                <input type="number" step="1" pattern="\d+" min="0" name="TimeEstimate" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={step.timeEstimate} />
+                <input type="text" name="Description" onChange={evt => handleDescriptionOnchange(evt, i)} defaultValue={step.description} />
+                <input type="number" step="1" pattern="\d+" min="0" name="TimeEstimate" onChange={evt => handleDescriptionOnchange(evt, i)} defaultValue={step.timeEstimate} />
                 <div className="btn-box">
                     {steps.length !== 1 && <button
-                        className="recipeRemoveButton"
                         onClick={() => handleRemove(i)}>Remove</button>}
                     {steps.length - 1 === i && <button onClick={() => handleAdd(step.stepNumber + 1)}>Add</button>}
                 </div>

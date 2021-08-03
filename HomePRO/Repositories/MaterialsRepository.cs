@@ -53,7 +53,7 @@ namespace HomePRO.Repositories
                         {
                             Id = Id,
                             Price = DbUtils.GetInt(reader, "Price"),
-                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            UserId = DbUtils.GetString(reader, "UserId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Qty = DbUtils.GetInt(reader, "Qty"),
                         };
@@ -83,13 +83,37 @@ namespace HomePRO.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Price = DbUtils.GetInt(reader, "Price"),
-                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            UserId = DbUtils.GetString(reader, "UserId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Qty = DbUtils.GetInt(reader, "Qty"),
                         });
                     }
                     reader.Close();
                     return MaterialsList;
+                }
+            }
+        }
+        public void AddMaterialsToProject(int projectId, Materials materials)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Insert into Materials (UserId, Name, Qty, Price)
+                                    OUTPUT INSERTED.ID
+                                    Values (@userId, @name, @qty, @price);";
+                    DbUtils.AddParameter(cmd, "@userId", materials.UserId);
+                    DbUtils.AddParameter(cmd, "@name", materials.Name);
+                    DbUtils.AddParameter(cmd, "@qty", materials.Qty);
+                    DbUtils.AddParameter(cmd, "@price", materials.Price);
+                    materials.Id = (int)cmd.ExecuteScalar();
+                    cmd.CommandText = @"Insert into ProjectMaterials (projectid, materialId)
+                                        output inserted.id
+                                        values (@projectId, @materialsId)";
+                    DbUtils.AddParameter(cmd, "@projectId", projectId);
+                    DbUtils.AddParameter(cmd, "@materialsId", materials.Id);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
