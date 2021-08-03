@@ -1,3 +1,4 @@
+import { Materials } from "../components/materials/Materials";
 import { getToken } from "./authManager";
 
 const _apiUrl = "/api/Materials";
@@ -49,5 +50,19 @@ export const getMaterialstByMaterialsId = (id) => {
                     throw new Error("Failed: no projects by project id were returned");
                 }
             })
+    })
+}
+
+export const createMaterials = (projectId, Materials) => {
+    return getToken().then((token) => {
+        return fetch(`${_apiUrl}/ProjectMaterials/${projectId}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify(Materials)
+        })
     })
 }

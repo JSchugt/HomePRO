@@ -51,7 +51,10 @@ namespace HomePRO.Controllers
             _materialsRepository.EditMaterials(materials);
             return Ok();
         }
-
+        [HttpPost("ProjectMaterials/{id}")]
+        public void AddMaterialsToProject(int id, Materials materials) {
+            _materialsRepository.AddMaterialsToProject(id, materials);
+        }
         // DELETE api/<MaterialsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useHistory, useParams } from "react-router-dom"
+import { Link, useHistory, useParams } from "react-router-dom"
 import { deleteProjectByProjectId, getProjectByProjectId } from "../../modules/projectsManager";
 import { getStepByProjectId, deleteStepById } from "../../modules/stepManager";
 import { getProjectMaterialsByProjectid, deleteByProjectIdAndMaterialId } from "../../modules/projectMaterialsManager";
@@ -46,7 +46,10 @@ export const ProjectCard = () => {
     const handleRemoveSteClie = (id) => {
         deleteStepById(id).then(getStepsByProject)
     }
-    const handleClickEditMaterials = (materials) => { }
+    const handleClickEditMaterials = () => {
+        history.push(`/Projects/${projectId}/Materials/Edit`)
+    }
+
     const handleClickEditSteps = (steps) => {
         history.push(`/Projects/${projectId}/steps`)
     }
@@ -70,9 +73,22 @@ export const ProjectCard = () => {
         <button onClick={() => handleClickEditSteps(steps)}>View Steps</button>
         <h2>
             Materials
-            {materials.map((item, i) => { return (<div key={item.id + "" + i + "" + projectId}>{item.name} <button onClick={() => handleRemoveOnClick(projectId, item.id)}>Remove</button></div>) })}
+            {materials.map((item, i) => { return (<div key={item.id + "" + i + "" + projectId}>{item.name} </div>) })}
         </h2>
-        <button onClick={() => handleClickEditMaterials(materials)}>Edit Materials</button>
+        <div>
+
+            <button onClick={() => handleClickEditMaterials()}>Edit Materials</button>
+            <button>
+                <Link to={`/Projects/${projectId}/Materials/Add`} >
+                    Add Materials
+                </Link>
+            </button>
+        </div>
+        <button>
+            <Link to={`/Projects/${projectId}/Edit`}>
+                Edit Project
+            </Link>
+        </button>
         <button onClick={handleDeleClick}> Delete Project</button>
     </div>
     )

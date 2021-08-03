@@ -68,7 +68,6 @@ export const StepCreate = () => {
                 <input type="number" step="1" pattern="\d+" min="0" name="TimeEstimate" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={step.timeEstimate} />
                 <div className="btn-box">
                     {steps.length !== 1 && <button
-                        className="recipeRemoveButton"
                         onClick={() => handleRemove(i)}>Remove</button>}
                     {steps.length - 1 === i && <button onClick={() => handleAdd(step.stepNumber + 1)}>Add</button>}
 

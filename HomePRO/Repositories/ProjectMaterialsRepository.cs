@@ -103,7 +103,7 @@ namespace HomePRO.Repositories
                             {
                                 Id = DbUtils.GetNullableInt(reader, "pmid"),
                                 Projectid = id,
-                                MaterialId = DbUtils.GetNullableInt(reader, "muserid"),
+                                MaterialId = DbUtils.GetNullableInt(reader, "mid"),
                                 Materials = new List<Materials>() { },
                             };
                         }
@@ -117,7 +117,7 @@ namespace HomePRO.Repositories
 
                         });
 
-                        
+
                     }
                     reader.Close();
                     return projectMaterials;

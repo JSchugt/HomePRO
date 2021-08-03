@@ -8,7 +8,7 @@ namespace HomePRO.Models
     public class Materials
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public int Qty { get; set; }
