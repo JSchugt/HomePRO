@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Link, useHistory, useParams } from "react-router-dom"
+import React, { useState } from "react"
+import { useHistory, useParams } from "react-router-dom"
 import { createMaterials } from "../../modules/materialsManager"
 
 export const AddMaterials = () => {
@@ -26,18 +26,17 @@ export const AddMaterials = () => {
             qty: 0,
             userId: "hello world"
         }]
-        console.log(materials)
         setMaterials(temp)
     }
     const handleOnChange = (evt, i) => {
         let temp = [...materials]
         const { value, name } = evt.target
         if (evt.target.name === "price") {
-            temp[i][name] = parseFloat(evt.target.value)
+            temp[i][name] = parseFloat(value)
         } else if (evt.target.name === "qty") {
-            temp[i][name] = parseInt(evt.target.value)
+            temp[i][name] = parseInt(value)
         } else {
-            temp[i][name] = evt.target.value
+            temp[i][name] = value
         }
         setMaterials([...temp])
     }
@@ -46,6 +45,7 @@ export const AddMaterials = () => {
             if (item.name === "" && item.price === 0 && item.qty === 0) {
                 // No-op nothing to save
             } else {
+
                 createMaterials(projectId, item)
             }
         })

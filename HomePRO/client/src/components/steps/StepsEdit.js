@@ -5,14 +5,13 @@ export const StepEdit = () => {
     const { id } = useParams()
     const history = useHistory()
     const [steps, setSteps] = useState([{}])
-    const stepDelete = []
     const getSteps = () => {
         getStepByProjectId(id).then(setSteps)
 
     }
     useEffect(() => {
         getSteps()
-    }, [id])
+    }, id)
 
     const handleDescriptionOnchange = (evt, i) => {
         const { name, value } = evt.target;

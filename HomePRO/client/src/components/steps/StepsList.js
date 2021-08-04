@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from "react"
 import { editSteps, getStepByProjectId } from "../../modules/stepManager";
-import { useToggle } from "../Toggle"
 import { useHistory, useParams } from "react-router-dom"
 import "./steps.css"
 import "../Toggle.css"
 export const StepList = () => {
-    const [isOn, toggleIsOn] = useToggle();
     const [steps, setSteps] = useState([{}])
     const { projectId } = useParams()
     const history = useHistory()
     const getStepsByProject = () => {
         getStepByProjectId(projectId).then(setSteps)
     }
-    useEffect(() => {
-        toggleIsOn(true)
-    }, [])
+
     useEffect(() => {
         getStepsByProject()
-    }, [projectId])
-    const changeToggle = (complete, id) => {
+    }, projectId)
 
-        toggleIsOn(!complete)
-    }
-    const handleOnClickEditSteps = () => {
 
-    }
     const handleIsCompleteChange = (evt, i) => {
         let temp = [...steps]
         temp[i].isComplete = !temp[i].isComplete

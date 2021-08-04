@@ -36,18 +36,18 @@ export default function Register() {
           <Label htmlFor="lastName">Last Name</Label>
           <Input id="lastName" type="text" onChange={e => setLastName(e.target.value)} />
         </FormGroup> */}
-        <FormGroup>
+        {/* <FormGroup>
           <Label htmlFor="displayName">Display Name</Label>
           <Input id="displayName" type="text" onChange={e => setDisplayName(e.target.value)} />
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup>
           <Label for="email">Email</Label>
           <Input id="email" type="text" onChange={e => setEmail(e.target.value)} />
         </FormGroup>
-        <FormGroup>
+        {/* <FormGroup>
           <Label htmlFor="imageLocation">Profile Image URL</Label>
           <Input id="imageLocation" type="text" onChange={e => setImageLocation(e.target.value)} />
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup>
           <Label for="password">Password</Label>
           <Input id="password" type="password" onChange={e => setPassword(e.target.value)} />

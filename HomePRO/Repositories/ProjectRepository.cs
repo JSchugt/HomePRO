@@ -83,7 +83,11 @@ namespace HomePRO.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Projects 
+                    cmd.CommandText = @"Delete from step
+                                        where projectid = @id;
+                                        Delete from ProjectMaterials
+                                        where projectId = @id;
+                                        DELETE FROM Projects 
                                         where id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
@@ -99,12 +103,12 @@ namespace HomePRO.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
 
-                    cmd.CommandText = @"Select p.Id as pid, p.Name, p.userId, p.Description, u.firebaseId as fbid, u.id uid
+                    cmd.CommandText = @"Select p.Id as pid, p.Name, p.userId, p.Description, u.firebaseId firebaseid, u.id uid
                                         From Projects p
-                                        Left join [User] u on p.userid = u.firebaseid
-                                        where u.firebaseId = @userId";
+                                        Left join [User] u on p.userid = firebaseid
+                                        where firebaseid = @userId";
                     List<Project> projects = new List<Project>() { };
-                    DbUtils.AddParameter(cmd, "@userId", "qCCBmyvDWKcJ23mPFaKALLrpW0r2");
+                    DbUtils.AddParameter(cmd, "@userId", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     Project project = null;
                     while (reader.Read())
@@ -114,7 +118,7 @@ namespace HomePRO.Repositories
                             Id = DbUtils.GetInt(reader, "pid"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            UserId = DbUtils.GetString(reader, "fbid"),
+                            UserId = DbUtils.GetString(reader, "firebaseId"),
                         };
                         projects.Add(project);
                     }
