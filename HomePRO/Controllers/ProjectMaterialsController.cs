@@ -50,5 +50,6 @@ namespace HomePRO.Controllers
         public void DeleteByProjectId(int id) {
             _projectMaterialsRepository.DeleteProjectMaterialsByProjectId(id);
         }
+
     }
 }

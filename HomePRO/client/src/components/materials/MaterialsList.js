@@ -24,18 +24,19 @@ export const MaterialsList = () => {
         // })
         const sum = inventory.reduce((a, v) => a = a + v.price * v.qty, 0)
 
-        setTotalPrice(sum / 100)
+        setTotalPrice(sum)
     }
 
     useEffect(() => {
         getInvenotry()
-    }, [])
+    }, [id])
     useEffect(() => {
         sumInventory()
     }, [totalPrice])
 
     return (<div>
-        <h1>MaterialsList</h1>
+        {/* <h1>MaterialsList</h1>
+        {console.log(inventory.length, "length")}
         <table>
             <caption>Total Inventory Cost</caption>
             <tr>
@@ -49,7 +50,7 @@ export const MaterialsList = () => {
                     <td className="cell">{item.name}</td>
                     <td className="cell price">${item.price / 100}</td>
                     <td className="cell price">{item.qty}</td>
-                    <td className="cell price">${item.price / 100 * item.qty}</td>
+                    <td className="cell price">${item.price * item.qty}</td>
                 </tr>
             })}
             <tr>
@@ -57,9 +58,9 @@ export const MaterialsList = () => {
                 <td className="total">Total</td>
                 <td ></td>
                 <td className="total">${totalPrice}</td>
-            </tr>
+            </tr> */}
 
-        </table>
+        {/* </table> */}
 
     </div>)
 }

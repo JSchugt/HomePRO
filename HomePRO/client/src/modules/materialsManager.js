@@ -1,26 +1,38 @@
-import { Materials } from "../components/materials/Materials";
 import { getToken } from "./authManager";
 
 const _apiUrl = "/api/Materials";
 
-export const getMaterialsByUserId = (id) => {
+export const UpdateMaterials = (id, materials) => {
     return getToken().then((token) => {
-        return fetch(`${_apiUrl}/UserId/${id}`,
+        return fetch(`${_apiUrl}/${id}`,
             {
-                method: "GET",
+                method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
-                }
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                } else {
-                    throw new Error("Failed: no projects by user id were returned");
-                }
+                },
+                body: JSON.stringify(materials)
             })
     })
 }
+// export const getMaterialsByUserId = (id) => {
+//     return getToken().then((token) => {
+//         return fetch(`${_apiUrl}/UserId/${id}`,
+//             {
+//                 method: "GET",
+//                 headers: {
+//                     Authorization: `Bearer ${token}`,
+//                     "Content-Type": "application/json",
+//                 }
+//             }).then(resp => {
+//                 if (resp.ok) {
+//                     return resp.json();
+//                 } else {
+//                     throw new Error("Failed: no projects by user id were returned");
+//                 }
+//             })
+//     })
+// }
 
 export const deleteMaterialsByProjectId = (id) => {
     return getToken().then((token) => {

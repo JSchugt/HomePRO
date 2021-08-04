@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router"
-import firebase from "firebase"
 import { editProject, getProjectByProjectId } from "../../modules/projectsManager"
 
 export const ProjectEdit = () => {

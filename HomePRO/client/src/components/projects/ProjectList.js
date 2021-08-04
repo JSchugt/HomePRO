@@ -10,6 +10,7 @@ export const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
     const history = useHistory();
     const currentUser = firebase.auth().currentUser.uid;
+    console.log(currentUser)
     const getProjects = () => {
         getProjectByUserId(currentUser)
             .then(proj => setProjects(proj));
@@ -28,7 +29,7 @@ export const ProjectsList = () => {
 
                 {projects.map((proj) => {
                     return (
-                        <div id={proj.id} onClick={() => handleProjectClick(proj.id)}>
+                        <div key={proj.id} id={proj.id} onClick={() => handleProjectClick(proj.id)}>
 
                             <Project key={proj.id} project={proj} />
                         </div>

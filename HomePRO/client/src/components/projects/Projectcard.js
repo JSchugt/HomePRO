@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Link, useHistory, useParams } from "react-router-dom"
 import { deleteProjectByProjectId, getProjectByProjectId } from "../../modules/projectsManager";
-import { getStepByProjectId, deleteStepById } from "../../modules/stepManager";
-import { getProjectMaterialsByProjectid, deleteByProjectIdAndMaterialId } from "../../modules/projectMaterialsManager";
+import { getStepByProjectId } from "../../modules/stepManager";
+import { getProjectMaterialsByProjectid } from "../../modules/projectMaterialsManager";
 
 export const ProjectCard = () => {
     const [project, setProject] = useState({})
     const [steps, setSteps] = useState([])
-    const [pm, setMaterials] = useState({})
     const [materials, setT] = useState([])
     const { projectId } = useParams();
     const history = useHistory();
@@ -21,7 +20,6 @@ export const ProjectCard = () => {
     //   ---------------------------------------------------
     const getMaterialsByPMId = () => {
         getProjectMaterialsByProjectid(projectId).then(res => {
-            setMaterials(res)
             if (res === 204) {
                 setT([])
             }
@@ -35,19 +33,14 @@ export const ProjectCard = () => {
     }, [projectId])
     useEffect(() => {
         getStepsByProject()
-    }, [projectId])
+    }, projectId)
     useEffect(() => {
         getMaterialsByPMId()
     }, [projectId])
-    const handleRemoveOnClick = (id, id2) => {
 
-        deleteByProjectIdAndMaterialId(id, id2).then(getMaterialsByPMId())
-    }
-    const handleRemoveSteClie = (id) => {
-        deleteStepById(id).then(getStepsByProject)
-    }
-    const handleClickEditMaterials = () => {
-        history.push(`/Projects/${projectId}/Materials/Edit`)
+
+    const handleClickViewMaterials = () => {
+        history.push(`/Projects/${projectId}/Materials/`)
     }
 
     const handleClickEditSteps = (steps) => {
@@ -77,7 +70,7 @@ export const ProjectCard = () => {
         </h2>
         <div>
 
-            <button onClick={() => handleClickEditMaterials()}>Edit Materials</button>
+            <button onClick={() => handleClickViewMaterials()}>View Materials</button>
             <button>
                 <Link to={`/Projects/${projectId}/Materials/Add`} >
                     Add Materials

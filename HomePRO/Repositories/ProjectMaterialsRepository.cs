@@ -107,15 +107,16 @@ namespace HomePRO.Repositories
                                 Materials = new List<Materials>() { },
                             };
                         }
-
+                        float price =(float) reader.GetDouble(reader.GetOrdinal("mprice"));
+                        DateTime time = DateTime.Now;
                         projectMaterials.Materials.Add(new Materials()
                         {
                             Id = DbUtils.GetInt(reader, "mid"),
                             Name = DbUtils.GetString(reader, "mname"),
-                            Price = DbUtils.GetInt(reader, "mprice"),
+                            Price = price,
                             Qty = DbUtils.GetInt(reader, "mqty"),
 
-                        });
+                        }); ;
 
 
                     }

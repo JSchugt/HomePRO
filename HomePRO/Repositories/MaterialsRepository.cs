@@ -52,7 +52,7 @@ namespace HomePRO.Repositories
                         materials = new Materials()
                         {
                             Id = Id,
-                            Price = DbUtils.GetInt(reader, "Price"),
+                            Price = reader.GetFloat(reader.GetOrdinal("Price")),
                             UserId = DbUtils.GetString(reader, "UserId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Qty = DbUtils.GetInt(reader, "Qty"),
@@ -82,8 +82,8 @@ namespace HomePRO.Repositories
                         MaterialsList.Add(new Materials()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Price = DbUtils.GetInt(reader, "Price"),
-                            UserId = DbUtils.GetString(reader, "UserId"),
+                            Price = reader.GetFloat(reader.GetOrdinal("Price")),
+                            UserId = DbUtils.GetString(reader, "userId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Qty = DbUtils.GetInt(reader, "Qty"),
                         });

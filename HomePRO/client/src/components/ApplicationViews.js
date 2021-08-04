@@ -4,8 +4,6 @@ import Register from "./Register";
 import Hello from "./Hello";
 import Login from "./Login";
 import { ProjectsList } from "./projects/ProjectList";
-import { Materials } from "./materials/Materials";
-// import { MaterialsList } from "./materials/MaterialsList";
 import { ProjectCard } from "./projects/Projectcard";
 import { StepCreate } from "./steps/StepsCreate";
 import { StepEdit } from "./steps/StepsEdit";
@@ -14,6 +12,7 @@ import { StepList } from "./steps/StepsList";
 import { ProjectEdit } from "./projects/ProjectEdit";
 import { EditMaterials } from "./materials/MaterialsEdit";
 import { AddMaterials } from "./materials/AddMaterials";
+import { MaterialsList } from "./materials/MaterialsInventory"
 export default function ApplicationViews({ isLoggedIn }) {
 
   return (
@@ -34,8 +33,8 @@ export default function ApplicationViews({ isLoggedIn }) {
           {isLoggedIn ? <ProjectEdit /> : <Redirect to="/login" />}
         </Route>
         {/* Materials */}
-        <Route path="/Projects/Materials" exact >
-          {isLoggedIn ? <Materials /> : <Redirect to="/login" />}
+        <Route path="/Projects/:projectId(\d+)/Materials" exact >
+          {isLoggedIn ? <MaterialsList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/Projects/:projectId(\d+)/Materials/Edit" exact>
           {isLoggedIn ? <EditMaterials /> : <Redirect to="/login" />}

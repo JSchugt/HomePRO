@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router"
+import { UpdateMaterials } from "../../modules/materialsManager"
 import { getProjectMaterialsByProjectid, deleteByProjectIdAndMaterialId } from "../../modules/projectMaterialsManager"
 export const EditMaterials = () => {
     const { projectId } = useParams()
-    const [pm, setMaterials] = useState([])
+    // const [pm, setMaterials] = useState([])
     const [materials, setT] = useState([{}])
     const history = useHistory()
     const getMaterialsByPMId = () => {
         getProjectMaterialsByProjectid(projectId).then(res => {
-            setMaterials(res)
             if (res === 204) {
                 setT([])
             }
@@ -53,13 +53,14 @@ export const EditMaterials = () => {
         setT(temp)
     }
     const handleSaveMaterials = () => {
-
+        materials.forEach(item => {
+            UpdateMaterials(item.id, item)
+        })
         history.push(`/Projects/${projectId}`)
 
     }
-    const handleCancel = () => {
-        history.push(`/Projects/${projectId}`)
-    }
+    const handleCancel = () => { }
+
     return (<div>
         <h1>Edit Materials</h1>
         {materials.map((item, i) => {
@@ -74,7 +75,7 @@ export const EditMaterials = () => {
                 </div>
             </div>)
         })}
-        <button onClick={handleSaveMaterials}>Save</button>
+        <button onClick={() => handleSaveMaterials()}>Save</button>
         <button onClick={handleCancel}>Cancel</button>
     </div >)
 }
