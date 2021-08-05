@@ -23,12 +23,15 @@ export const StepList = () => {
         setSteps([...temp])
     }
     return (
-        <div>
-            <h2>Hello from step list</h2>
+        <div className="maincard">
+            <h2>Steps</h2>
             {
                 steps.map((step, i) => {
                     return (<div className="steplist" key={step.id + "step" + step.number}>
-                        <div className="stepDesc">{step.stepNumber}. {step.description}</div>
+                        <div className="stepDesc"><div>{step.stepNumber}.</div>
+                            <div>{step.description}   </div>
+                            <div className="timeestimate">{step.timeEstimate} Minutes</div>
+                        </div>
                         <button id="isCompleteButton" onClick={(evt) => handleIsCompleteChange(evt, i)}>{step.isComplete ? "Complete" : "In Progress"}</button>
                         {/* <label className="switch">
                             <input type="checkbox" id="slider1" onClick={() => changeToggle(step.isComplete, step.id)} />
@@ -38,6 +41,7 @@ export const StepList = () => {
                 })
             }
             <button onClick={() => { history.push(`/Projects/${projectId}/Steps/Edit`) }} >Edit Steps</button>
+            <button onClick={() => { history.push(`/Projects/${projectId}`) }} >Back</button>
         </div >
     )
 

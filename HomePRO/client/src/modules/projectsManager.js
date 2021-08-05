@@ -52,6 +52,7 @@ export const getProjectByProjectId = (id) => {
 }
 
 export const createProject = (project) => {
+    console.log(project)
     return getToken().then((token) => {
         return fetch(`${_apiUrl}`, {
             method: "POST",

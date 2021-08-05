@@ -6,6 +6,8 @@ export const ProjectEdit = () => {
     const { projectId } = useParams()
     const [project, setProject] = useState({})
     const history = useHistory();
+    const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
     const handleOnchange = (evt) => {
 
         let temp = project
@@ -23,6 +25,7 @@ export const ProjectEdit = () => {
     }
     const getProject = () => {
         getProjectByProjectId(projectId).then(setProject)
+        setImage(project.projectImage)
 
     }
     useEffect(() => {
@@ -31,8 +34,32 @@ export const ProjectEdit = () => {
     const handleProjectSave = () => {
         editProject(project).then(history.push('/Projects'))
     }
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'HomPRO')
+        setLoading(true)
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/nss-student/image/upload',
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+        const file = await res.json()
+
+        setImage(file.secure_url)
+        console.log("FILE URL", file.secure_url)
+        setLoading(false)
+        // sends to sql
+        let temp = { ...project }
+        temp.projectImage = file.secure_url
+        setProject(temp)
+        project.projectImage = file.secure_url
+    }
     return (
-        <div>
+        <div className="maincard">
             <h1>Edit Project</h1>
             <div>
                 <label>Project Name</label>
@@ -46,6 +73,17 @@ export const ProjectEdit = () => {
             <div>
                 <input type="text" name={"description"} onChange={(evt) => handleOnchange(evt)} defaultValue={project.description} />
             </div>
+            <input
+                type="file"
+                name="file"
+                placeholder="Upload an Image"
+                onChange={uploadImage}
+            />
+            {loading ? (
+                <h3>Loading</h3>
+            ) : (
+                <img src={project.projectImage} style={{ width: '300px' }} alt={"No Image"} />
+            )}
             <div>
                 <button onClick={handleProjectSave}>Save</button>
                 <button onClick={() => history.push("/Projects")}>

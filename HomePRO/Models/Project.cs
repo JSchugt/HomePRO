@@ -11,5 +11,7 @@ namespace HomePRO.Models
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ProjectImage { get; set; }
+
     }
 }

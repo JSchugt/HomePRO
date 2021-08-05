@@ -11,6 +11,14 @@
     -webkit-text-stroke-color: Black;
 }
 
+#logout {
+    margin-left: 20%;
+}
+
+.navbutton {
+    margin-left: 30%;
+}
+
 .tape-text {
     background: repeating-linear-gradient( #282C33 30px, #282C33 60px);
     color: white;

@@ -1,0 +1,27 @@
+.maincard {
+    margin-left: 30%;
+}
+
+.step_materials {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+
+.projlistspace {
+    width: fit-content;
+}
+
+.materialsspace {
+    margin-left: 3em;
+}
+
+#projDescription {
+    width: fit-content;
+    border-bottom: black solid 2px;
+}
+
+.projectHead {
+    display: flex;
+    flex-direction: row;
+}

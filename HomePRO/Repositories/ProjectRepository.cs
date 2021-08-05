@@ -19,11 +19,12 @@ namespace HomePRO.Repositories
                 using(var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"Update Projects 
-                                        set name = @name, description = @description
+                                        set name = @name, description = @description, ProjectImage = @ProjectImage
                                         where id = @id";
                     DbUtils.AddParameter(cmd, "@name", project.Name);
                     DbUtils.AddParameter(cmd, "@description", project.Description);
                     DbUtils.AddParameter(cmd, "@id", project.Id);
+                    DbUtils.AddParameter(cmd, "@ProjectImage", project.ProjectImage);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -36,12 +37,13 @@ namespace HomePRO.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"Insert into Projects (Name, Description, UserId)
+                    cmd.CommandText = @"Insert into Projects (Name, Description, UserId, ProjectImage)
                                         OUTPUT INSERTED.ID
-                                        VALUES(@Name, @Description, @UserId);";
+                                        VALUES(@Name, @Description, @UserId, @ProjectImage);";
                     DbUtils.AddParameter(cmd, "@Name", project.Name);
                     DbUtils.AddParameter(cmd, "@Description", project.Description);
                     DbUtils.AddParameter(cmd, "@UserId", project.UserId);
+                    DbUtils.AddParameter(cmd, "@ProjectImage", project.ProjectImage);
                     project.Id = (int)cmd.ExecuteScalar();
                 }
             }
@@ -55,7 +57,7 @@ namespace HomePRO.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
 
-                    cmd.CommandText = @"Select Id, Name, userId, Description
+                    cmd.CommandText = @"Select Id, Name, userId, Description, ProjectImage
                                         From Projects
                                         Where Id = @Id";
                     DbUtils.AddParameter(cmd, "Id", id);
@@ -69,6 +71,7 @@ namespace HomePRO.Repositories
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
                             UserId = DbUtils.GetString(reader, "userId"),
+                            ProjectImage = DbUtils.GetString(reader, "ProjectImage")
                         };
                     }
                     reader.Close();
@@ -94,7 +97,9 @@ namespace HomePRO.Repositories
                 }
             }
         }
-
+        public List<Project> GetAllProjects() {
+            throw new NotImplementedException();
+        }
         public List<Project> GetProjectsByUserId(string id)
         {
             using (var conn = Connection)
@@ -103,7 +108,7 @@ namespace HomePRO.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
 
-                    cmd.CommandText = @"Select p.Id as pid, p.Name, p.userId, p.Description, u.firebaseId firebaseid, u.id uid
+                    cmd.CommandText = @"Select p.Id as pid, p.Name, p.userId, p.Description, u.firebaseId firebaseid, u.id uid, p.ProjectImage ProjectImage
                                         From Projects p
                                         Left join [User] u on p.userid = firebaseid
                                         where firebaseid = @userId";
@@ -119,6 +124,7 @@ namespace HomePRO.Repositories
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
                             UserId = DbUtils.GetString(reader, "firebaseId"),
+                            ProjectImage = DbUtils.GetString(reader, "ProjectImage")
                         };
                         projects.Add(project);
                     }
