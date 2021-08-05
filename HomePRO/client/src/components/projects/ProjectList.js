@@ -6,11 +6,11 @@ import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Project } from './Projects';
+import "./projects.css"
 export const ProjectsList = () => {
     const [projects, setProjects] = useState([]);
     const history = useHistory();
     const currentUser = firebase.auth().currentUser.uid;
-    console.log(currentUser)
     const getProjects = () => {
         getProjectByUserId(currentUser)
             .then(proj => setProjects(proj));
@@ -23,8 +23,8 @@ export const ProjectsList = () => {
     }
     return (
 
-        <div>
-            <h1>Hello</h1>
+        <div className="maincard">
+            <h1>Here Are Your Projects</h1>
             <div>
 
                 {projects.map((proj) => {

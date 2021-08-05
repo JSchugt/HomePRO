@@ -59,13 +59,13 @@ export const StepCreate = () => {
     const handleCancel = () => {
         history.push(`/Projects/${id}`)
     }
-    return (<div className="create-steps">
+    return (<div className="create-steps maincard">
         <h2>Create Steps</h2>
         {steps.map((step, i) => {
             return (<div key={i}>
                 <div>{step.stepNumber}</div>
                 <input type="text" name="Description" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={step.description} />
-                <input type="number" step="1" pattern="\d+" min="0" name="TimeEstimate" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={step.timeEstimate} />
+                <input type="number" step="1" pattern="\d+" min="0" name="TimeEstimate" onChange={evt => handleDescriptionOnchange(evt, i)} placeholder={"Time in minutes"} />
                 <div className="btn-box">
                     {steps.length !== 1 && <button
                         onClick={() => handleRemove(i)}>Remove</button>}

@@ -12,5 +12,7 @@ namespace HomePRO.Repositories
         public void DeleteProjectById(int id);
 
         public void EditPorject(Project project);
+
+        public List<Project> GetAllProjects();
     }
 }

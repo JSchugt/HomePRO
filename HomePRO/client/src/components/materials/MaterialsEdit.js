@@ -59,9 +59,11 @@ export const EditMaterials = () => {
         history.push(`/Projects/${projectId}`)
 
     }
-    const handleCancel = () => { }
+    const handleCancel = () => {
+        history.push(`/Projects/${projectId}`)
+    }
 
-    return (<div>
+    return (<div className="maincard">
         <h1>Edit Materials</h1>
         {materials.map((item, i) => {
             return (<div key={i}>

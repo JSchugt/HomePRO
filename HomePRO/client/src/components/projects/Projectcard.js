@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import { deleteProjectByProjectId, getProjectByProjectId } from "../../modules/projectsManager";
 import { getStepByProjectId } from "../../modules/stepManager";
 import { getProjectMaterialsByProjectid } from "../../modules/projectMaterialsManager";
-
+import "./projects.css"
 export const ProjectCard = () => {
     const [project, setProject] = useState({})
     const [steps, setSteps] = useState([])
@@ -37,39 +37,53 @@ export const ProjectCard = () => {
     useEffect(() => {
         getMaterialsByPMId()
     }, [projectId])
-
-
     const handleClickViewMaterials = () => {
         history.push(`/Projects/${projectId}/Materials/`)
     }
-
     const handleClickEditSteps = (steps) => {
         history.push(`/Projects/${projectId}/steps`)
     }
     const handleDeleClick = () => {
-        deleteProjectByProjectId(projectId).then(history.push("/Projects"))
+        if (window.confirm("Are you sure you want to delete this project")) {
+
+            deleteProjectByProjectId(projectId).then(history.push("/Projects"))
+        }
     }
-    return (<div>
-
+    return (<div className="maincard">
         <h1>Project card</h1>
-        <div>{project.name}</div>
-        <div>{project.description}</div>
-        <h2>
-            Steps
-            {steps.length > 0 ? <div>
+        <div className="projectHead">
+            <div>
+                <h2 id="projDescription">{project.name}</h2>
+                <h2 id="projDescription">{project.description}</h2>
+            </div>
+            <img src={project.projectImage} style={{ width: '300px' }} />
+        </div>
+        <div className="projlistspace">
+            <div className="step_materials">
+                <div>
+                    <h2>
+                        Steps
+                        {steps.length > 0 ? <div >
+                            {steps.map((step) => {
+                                return (<div key={step.id}>{step.description}</div>)
+                            })}
+                        </div> : <button onClick={() => history.push(`/Projects/${projectId}/Steps/Create`)}>Add Steps</button>}
+                    </h2>
 
-                {steps.map((step) => {
-                    return (<div key={step.id}>{step.description}</div>)
-                })}
-            </div> : <button onClick={() => history.push(`/Projects/${projectId}/Steps/Create`)}>Add Steps</button>}
-        </h2>
-        <button onClick={() => handleClickEditSteps(steps)}>View Steps</button>
-        <h2>
-            Materials
-            {materials.map((item, i) => { return (<div key={item.id + "" + i + "" + projectId}>{item.name} </div>) })}
-        </h2>
-        <div>
-
+                </div>
+                <div className="projlistspace"></div>
+                <div className="materialsspace">
+                    <h2>
+                        Materials
+                        {materials.map((item, i) => { return (<div key={item.id + "" + i + "" + projectId}>{item.name} </div>) })}
+                    </h2>
+                    <div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+            <button onClick={() => handleClickEditSteps(steps)}>View Steps</button>
             <button onClick={() => handleClickViewMaterials()}>View Materials</button>
             <button>
                 <Link to={`/Projects/${projectId}/Materials/Add`} >

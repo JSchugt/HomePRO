@@ -7,6 +7,8 @@ export const Project = ({ project }) => {
         <div>
 
             <h2>{project.name}</h2>
+            <img src={project.projectImage} style={{ width: '300px' }} />
+
         </div>
     )
 }

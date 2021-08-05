@@ -32,7 +32,7 @@ export const ProjectEdit = () => {
         editProject(project).then(history.push('/Projects'))
     }
     return (
-        <div>
+        <div className="maincard">
             <h1>Edit Project</h1>
             <div>
                 <label>Project Name</label>
