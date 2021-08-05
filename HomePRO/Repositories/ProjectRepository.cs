@@ -24,6 +24,7 @@ namespace HomePRO.Repositories
                     DbUtils.AddParameter(cmd, "@name", project.Name);
                     DbUtils.AddParameter(cmd, "@description", project.Description);
                     DbUtils.AddParameter(cmd, "@id", project.Id);
+                    DbUtils.AddParameter(cmd, "@ProjectImage", project.ProjectImage);
                     cmd.ExecuteNonQuery();
                 }
             }
